@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:triptale/src/presentation/home/home_page.dart';
 
 import 'presentation/trips/favorite_trips.dart';
 import 'presentation/user_auth/edit_profile.dart';
@@ -138,7 +139,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         builder: (context) => Signin(),
                       ));
                 },
-                child: Text("Sign In"))
+                child: Text("Sign In")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ));
+                },
+                child: Text("Home Page"))
           ],
         ),
       ),
