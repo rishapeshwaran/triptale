@@ -13,7 +13,6 @@ class _SigninState extends State<Signin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Sign In")),
-      backgroundColor: Colors.amber,
       body: Column(
         children: [
           Expanded(child: SizedBox()),
@@ -24,7 +23,7 @@ class _SigninState extends State<Signin> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
             ),
-            height: 475,
+            // height: 475,
             width: double.maxFinite,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +79,7 @@ class _SigninState extends State<Signin> {
               ],
             ),
           ),
+          Expanded(child: SizedBox()),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:triptale/src/presentation/user_auth/edit_profile.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -42,6 +43,11 @@ class _SignUpState extends State<SignUp> {
                       onPressed: () {
                         setState(() {
                           _isBottomSheet = false;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProfile(),
+                              ));
                         });
                       },
                       child: Text("Verify OTP"))
@@ -76,6 +82,7 @@ class _SignUpState extends State<SignUp> {
                 Text("Sign up & start exploring!"),
                 SizedBox(height: 10),
                 TextField(
+                  enabled: !_isBottomSheet,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -93,24 +100,6 @@ class _SignUpState extends State<SignUp> {
                         onPressed: () {
                           _isBottomSheet = true;
                           setState(() {});
-                          // showModalBottomSheet(
-                          //   context: context,
-                          //   builder: (context) {
-                          //     return _OTPVerification();
-                          //   },
-                          // );
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (context) {
-                          //     return SizedBox(
-                          //       height: 100,
-                          //       width: 100,
-                          //       child: Dialog(
-                          //         child: _OTPVerification(),
-                          //       ),
-                          //     );
-                          //   },
-                          // );
                         },
                         child: Text(
                           "GET OTP",
@@ -125,29 +114,4 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
-}
-
-Container _OTPVerification() {
-  return Container(
-    width: double.maxFinite,
-    height: 360,
-    color: Colors.red,
-    child: Column(
-      children: [
-        Text("Verify OTP"),
-        Text("Enter the OTP send you on your email id"),
-        Pinput(
-          length: 4,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Don't receive OTP?"),
-            Text("Resend OTP"),
-          ],
-        ),
-        ElevatedButton(onPressed: () {}, child: Text("Verify OTP"))
-      ],
-    ),
-  );
 }
