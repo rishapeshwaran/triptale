@@ -128,50 +128,6 @@ class _TripExpanceState extends State<TripExpance> {
                           );
                         },
                       );
-                      ;
-                      // setState(() {
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (context) {
-                      //       return Container(
-                      //         height: 400,
-                      //         decoration: BoxDecoration(
-                      //           border: Border(),
-                      //           borderRadius: BorderRadius.only(
-                      //               topLeft: Radius.circular(20),
-                      //               topRight: Radius.circular(20)),
-                      //           color: Theme.of(context)
-                      //               .colorScheme
-                      //               .secondaryContainer,
-                      //         ),
-                      //         child: Column(
-                      //           children: [
-                      //             SizedBox(height: 5),
-                      //             Container(
-                      //               height: 35,
-                      //               child: Row(
-                      //                 children: [
-                      //                   Expanded(child: SizedBox()),
-                      //                   IconButton(
-                      //                       onPressed: () {
-                      //                         setState(() {
-                      //                           _isBottomSheet = false;
-                      //                         });
-                      //                       },
-                      //                       icon: Icon(Icons.close))
-                      //                 ],
-                      //               ),
-                      //             ),
-                      //             Divider(
-                      //               color: Colors.grey,
-                      //             )
-                      //           ],
-                      //         ),
-                      //       );
-                      //     },
-                      //   );
-                      //   // _isBottomSheet = true;
-                      // });
                     },
                     child: Text("add +")),
                 ElevatedButton(onPressed: () {}, child: Text(("remove -"))),
