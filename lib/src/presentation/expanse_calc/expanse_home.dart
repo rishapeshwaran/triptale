@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:triptale/src/data/db_helper/service.dart';
 
 import '../../data/dtos/expanse_master_dto.dart';
 import '../../data/repository/expanse_repository.dart';
@@ -14,10 +15,19 @@ class ExpanseCalcState extends ConsumerStatefulWidget {
 }
 
 class _ExpanseCalcStateState extends ConsumerState<ExpanseCalcState> {
+  var _expanseService = ExpanseService();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      fetchAndSetExpanseMasters(ref);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     List<TripExpanseMaster> tripExpanseMasterList =
-        ref.watch(ExpanseMasterProvider);
+        ref.watch(expanseMasterProvider);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -97,26 +107,29 @@ class _ExpanseCalcStateState extends ConsumerState<ExpanseCalcState> {
                         child: Text('CANCEL'),
                       ),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           final newTrip = TripExpanseMaster(
-                            id: tripExpanseMasterList.length + 1,
-                            title: titleController.text,
-                            description: discriptionController.text,
-                            numberOfMembers:
-                                int.parse(noOfMembersController.text),
-                            startDate: selectedDateRange?.start,
-                            endDate: selectedDateRange?.end,
-                            budget: double.parse(budgetController.text),
-                          );
-                          final updatedList = [
-                            ...tripExpanseMasterList,
-                            newTrip
-                          ];
+                              id: tripExpanseMasterList.length + 1,
+                              title: titleController.text,
+                              description: discriptionController.text,
+                              numberOfMembers:
+                                  int.parse(noOfMembersController.text),
+                              startDate: selectedDateRange?.start,
+                              endDate: selectedDateRange?.end,
+                              budget: double.parse(budgetController.text),
+                              expanseList: []);
+                          // final updatedList = [
+                          //   ...tripExpanseMasterList,
+                          //   newTrip
+                          // ];
+                          // ref
+                          //     .read(expanseMasterProvider.notifier)
+                          //     .update((state) => updatedList);
 
-                          ref
-                              .read(ExpanseMasterProvider.notifier)
-                              .update((state) => updatedList);
-
+                          var result = await _expanseService.saveExpanseMaster(
+                              newTrip.tripExpanseMasterMap());
+                          fetchAndSetExpanseMasters(ref);
+                          print(result);
                           Navigator.of(context).pop();
                         },
                         child: Text('ACCEPT'),
@@ -146,6 +159,9 @@ class _ExpanseCalcStateState extends ConsumerState<ExpanseCalcState> {
                     const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
                 child: InkWell(
                   onTap: () {
+                    ref
+                        .read(currentExpanseProvider.notifier)
+                        .update((state) => tripExpanseMasterList[index].id);
                     Navigator.push(
                         context,
                         MaterialPageRoute(

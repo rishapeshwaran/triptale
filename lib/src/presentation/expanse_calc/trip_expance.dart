@@ -1,16 +1,48 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
-class TripExpance extends StatefulWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:triptale/src/data/dtos/expanse_master_dto.dart';
+import 'package:triptale/src/data/repository/expanse_repository.dart';
+
+class TripExpance extends ConsumerStatefulWidget {
   const TripExpance({super.key});
 
   @override
-  State<TripExpance> createState() => _TripExpanceState();
+  ConsumerState<TripExpance> createState() => _TripExpanceState();
 }
 
-class _TripExpanceState extends State<TripExpance> {
+class _TripExpanceState extends ConsumerState<TripExpance> {
   bool _isBottomSheet = false;
+  TextEditingController _dateController = TextEditingController();
+  bool _isPerHead = false;
+  TextEditingController _perHeadController = TextEditingController();
+  TextEditingController _expanseNameController = TextEditingController();
+  TextEditingController _amoutController = TextEditingController();
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        _dateController.text =
+            "${pickedDate.toLocal()}".split(' ')[0]; // Format YYYY-MM-DD
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    int? currentExpanseId = ref.watch(currentExpanseProvider);
+    List<TripExpanseMaster> tripExpanseMasterList =
+        ref.watch(expanseMasterProvider);
+    TripExpanseMaster tripExpanse = ref.watch(expanseMasterProvider).firstWhere(
+          (element) => element.id == currentExpanseId,
+        );
     return Scaffold(
       bottomSheet: _isBottomSheet
           ? Container(
@@ -60,10 +92,6 @@ class _TripExpanceState extends State<TripExpance> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          bool isPerHead = false;
-                          TextEditingController perHeadController =
-                              TextEditingController();
-
                           return StatefulBuilder(
                             builder:
                                 (BuildContext context, StateSetter setState) {
@@ -73,39 +101,60 @@ class _TripExpanceState extends State<TripExpance> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     TextFormField(
+                                      controller: _expanseNameController,
                                       decoration:
                                           InputDecoration(labelText: 'Name'),
                                     ),
                                     TextFormField(
+                                      controller: _amoutController,
                                       decoration:
                                           InputDecoration(labelText: 'Amount'),
                                       keyboardType: TextInputType.number,
                                     ),
+                                    // TextFormField(
+                                    //   decoration: InputDecoration(
+                                    //       labelText: 'Quantity'),
+                                    //   keyboardType: TextInputType.number,
+                                    // ),
                                     TextFormField(
+                                      controller: _dateController,
                                       decoration: InputDecoration(
-                                          labelText: 'Quantity'),
-                                      keyboardType: TextInputType.number,
+                                        labelText: "Date of Birth",
+                                        suffixIcon: Icon(Icons.calendar_today),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                      ),
+                                      readOnly: true,
+                                      onTap: () => _selectDate(context),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return "Date selection is required";
+                                        }
+                                        return null;
+                                      },
                                     ),
                                     Row(
                                       children: [
                                         Checkbox(
-                                          value: isPerHead,
+                                          value: _isPerHead,
                                           onChanged: (bool? value) {
                                             setState(() {
-                                              isPerHead = value!;
+                                              _isPerHead = value!;
                                             });
                                           },
                                         ),
                                         Text('Per Head'),
                                       ],
                                     ),
-                                    if (isPerHead)
-                                      TextFormField(
-                                        controller: perHeadController,
-                                        decoration: InputDecoration(
-                                            labelText: 'How much per head'),
-                                        keyboardType: TextInputType.number,
-                                      ),
+                                    // if (isPerHead)
+                                    //   TextFormField(
+                                    //     controller: perHeadController,
+                                    //     decoration: InputDecoration(
+                                    //         labelText: 'How much per head'),
+                                    //     keyboardType: TextInputType.number,
+                                    //   ),
                                   ],
                                 ),
                                 actions: [
@@ -118,6 +167,25 @@ class _TripExpanceState extends State<TripExpance> {
                                   ElevatedButton(
                                     onPressed: () {
                                       // Handle the form submission logic here
+                                      final newTripExpance = TripExpanse(
+                                          title: _expanseNameController.text,
+                                          amount: double.parse(
+                                              _amoutController.text),
+                                          date: DateTime.parse(
+                                              _dateController.text),
+                                          isPerHead: _isPerHead);
+                                      tripExpanseMasterList
+                                          .firstWhere((element) =>
+                                              element.id == currentExpanseId)
+                                          .expanseList
+                                          .add(newTripExpance);
+                                      // final updatedList = [
+                                      //   ...tripExpanseMasterList
+                                      // ];
+                                      ref
+                                          .read(expanseMasterProvider.notifier)
+                                          .update((state) =>
+                                              [...tripExpanseMasterList]);
                                       Navigator.of(context).pop();
                                     },
                                     child: Text('ACCEPT'),
@@ -137,7 +205,7 @@ class _TripExpanceState extends State<TripExpance> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 5,
+              itemCount: tripExpanse.expanseList.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding:

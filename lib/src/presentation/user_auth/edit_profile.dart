@@ -223,3 +223,6 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 }
+
+
+// git remote set-url origin https://<TOKEN>@github.com/<user_name or organization_name>/<repo_name>.git

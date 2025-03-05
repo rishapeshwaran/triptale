@@ -1,12 +1,12 @@
 class TripExpanseMaster {
-  final int id;
-  final String title;
-  final String description;
-  final int numberOfMembers;
-  final DateTime? startDate;
-  final DateTime? endDate;
-  final double? perHeadAmount; // Optional if perHead is selected
-  final double budget;
+  int? id;
+  String title;
+  String description;
+  int numberOfMembers;
+  DateTime? startDate;
+  DateTime? endDate;
+  double budget;
+  List<TripExpanse> expanseList;
 
   TripExpanseMaster({
     required this.id,
@@ -15,12 +15,46 @@ class TripExpanseMaster {
     required this.numberOfMembers,
     required this.startDate,
     required this.endDate,
-    this.perHeadAmount,
     required this.budget,
+    required this.expanseList,
   });
 
-  @override
-  String toString() {
-    return 'Trip{id: $id, title: $title, description: $description, numberOfMembers: $numberOfMembers, startDate: $startDate, endDate: $endDate, perHeadAmount: $perHeadAmount, budget: $budget}';
+  Map<String, dynamic> tripExpanseMasterMap() {
+    return {
+      // 'id': id,
+      'title': title,
+      'description': description,
+      'numberOfMembers': numberOfMembers,
+      'startDate': startDate?.toIso8601String(),
+      'endDate': endDate?.toIso8601String(),
+      'budget': budget,
+      //'expanseList': expanseList.map((e) => e.tripExpanseMap()).toList(),
+    };
+  }
+}
+
+class TripExpanse {
+  int? id;
+  String title;
+  double amount;
+  bool isPerHead;
+  DateTime date;
+
+  TripExpanse({
+    this.id,
+    required this.amount,
+    required this.isPerHead,
+    required this.title,
+    required this.date,
+  });
+
+  Map<String, dynamic> tripExpanseMap() {
+    return {
+      'id': id,
+      'title': title,
+      'amount': amount,
+      'isPerHead': isPerHead,
+      'date': date.toIso8601String(),
+    };
   }
 }
