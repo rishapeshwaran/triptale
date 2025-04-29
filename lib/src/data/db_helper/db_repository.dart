@@ -43,4 +43,10 @@ class DBRepository {
     var connection = await database;
     return await connection?.rawDelete("delete from $table where id=$id");
   }
+
+  readExpanseDetailById(table, id) async {
+    var connection = await database;
+    return await connection
+        ?.query(table, where: 'tripExMasterID=?', whereArgs: [id]);
+  }
 }

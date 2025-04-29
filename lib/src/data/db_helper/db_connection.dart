@@ -22,5 +22,16 @@ class DatabaseConnection {
     budget REAL NOT NULL
     )''';
     await database.execute(tripExMasterQuery);
+
+    String tripExDetailQuery = '''CREATE TABLE TripExpanseDetail(
+	  id INTEGER PRIMARY KEY AUTOINCREMENT,
+	  tripExMasterID INTEGER NOT NULL,
+	  title TEXT NOT NULL,
+	  amount REAL NOT NULL,
+	  date TEXT,
+    isPerHead INTEGER,
+	  FOREIGN KEY(tripExMasterID) REFERENCES TripExpanseMaster(id) ON DELETE CASCADE
+    )''';
+    await database.execute(tripExDetailQuery);
   }
 }

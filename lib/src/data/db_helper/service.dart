@@ -12,4 +12,12 @@ class ExpanseService {
   getExpanseMaster() async {
     return await _dbRepository.readData("TripExpanseMaster");
   }
+
+  saveExpanseDetail(data) async {
+    return await _dbRepository.insertData("TripExpanseDetail", data);
+  }
+
+  getExpanseDetail() async {
+    return await _dbRepository.readData("TripExpanseDetail");
+  }
 }

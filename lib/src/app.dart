@@ -1,11 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:triptale/src/presentation/home/home_page.dart';
-
+import 'package:triptale/src/presentation/user_auth/sign_up.dart';
+import '../splash_screen.dart';
 import 'presentation/trips/favorite_trips.dart';
 import 'presentation/user_auth/edit_profile.dart';
-import 'presentation/user_auth/profile.dart';
 import 'presentation/user_auth/signin.dart';
 import 'services/app_theme.dart';
 
@@ -19,17 +20,36 @@ class MyApp extends ConsumerStatefulWidget {
 class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
+    print("==>" + FirebaseAuth.instance.currentUser.toString());
+    print(FirebaseAuth.instance.currentUser);
     ColorScheme colorScheme =
         ColorScheme.fromSeed(seedColor: Colors.deepPurple);
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: colorScheme,
-        useMaterial3: true,
-        textTheme: _getTextTheme(AppFontsType.openSans, colorScheme.onSurface),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          // colorScheme: colorScheme,
+          useMaterial3: true,
+          textTheme:
+              _getTextTheme(AppFontsType.openSans, colorScheme.onSurface),
+        ),
+        // home: TravelPostPage());
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.data != null) {
+              return const SplashScreen();
+            }
+            return const SplashScreen1();
+          },
+        ));
+    // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    // home:
+    //     FirebaseAuth.instance.currentUser != null ? HomePage() : SignUp());
   }
 
   TextTheme _getTextTheme(AppFontsType appFont, Color colorsText) {
@@ -104,24 +124,15 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyProfile(),
-                      ));
-                },
-                child: Text("profile")),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EditProfile(),
-                      ));
-                },
-                child: Text("Edit profile")),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //             builder: (context) => EditProfile(),
+            //           ));
+            //     },
+            //     child: Text("Edit profile")),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(

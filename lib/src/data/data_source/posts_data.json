@@ -1,0 +1,484 @@
+{
+  "travelPosts": [
+  {
+    "postId": "t1001",
+    "user": {
+      "id": "u002",
+      "username": "wander_luke",
+      "profilePicture": "https://example.com/users/luke.jpg"
+    },
+    "location": {
+      "placeName": "Santorini, Greece",
+      "coordinates": { "lat": 36.3932, "lng": 25.4615 }
+    },
+    "experience": "Sunsets here are magical! The white houses and blue domes are picture perfect.",
+    "media": [
+      { "type": "image", "url": "https://example.com/posts/santorini1.jpg" },
+      { "type": "video", "url": "https://example.com/posts/sunset_video.mp4" }
+    ],
+    "timestamp": "2025-03-26T10:00:00Z",
+    "likesCount": 340,
+    "likedByCurrentUser": true,
+    "comments": [
+      {
+        "commentId": "c201",
+        "user": { "id": "u003", "username": "travel_bella" },
+        "text": "Bucket list for sure! 😍",
+        "timestamp": "2025-03-26T11:00:00Z"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "hotel",
+        "name": "Ocean Blue Resort",
+        "rating": 4.5,
+        "feedback": "Amazing view and friendly staff. Breakfast was a highlight!"
+      },
+      {
+        "type": "restaurant",
+        "name": "Taverna Nikolas",
+        "rating": 4.0,
+        "feedback": "Authentic Greek food, try the Moussaka!"
+      },
+      {
+        "type": "place",
+        "name": "Oia Castle",
+        "rating": 5.0,
+        "feedback": "Best sunset view in Santorini."
+      }
+    ]
+  },
+  {
+    "postId": "t1002",
+    "user": {
+      "id": "u004",
+      "username": "nomad_emma",
+      "profilePicture": "https://example.com/users/emma.jpg"
+    },
+    "location": {
+      "placeName": "Kyoto, Japan",
+      "coordinates": { "lat": 35.0116, "lng": 135.7681 }
+    },
+    "experience": "Spring in Kyoto is stunning. Cherry blossoms everywhere and peaceful temple walks.",
+    "media": [
+      { "type": "image", "url": "https://example.com/posts/kyoto_blossoms.jpg" },
+      { "type": "image", "url": "https://example.com/posts/temple_path.jpg" }
+    ],
+    "timestamp": "2025-03-24T09:30:00Z",
+    "likesCount": 275,
+    "likedByCurrentUser": false,
+    "comments": [
+      {
+        "commentId": "c202",
+        "user": { "id": "u001", "username": "adventure_joe" },
+        "text": "Looks peaceful! Need to visit in spring. 🌸",
+        "timestamp": "2025-03-24T10:15:00Z"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "hotel",
+        "name": "Gion Corner Inn",
+        "rating": 4.2,
+        "feedback": "Traditional vibes, great location near historic district."
+      },
+      {
+        "type": "restaurant",
+        "name": "Izakaya Sakura",
+        "rating": 4.7,
+        "feedback": "Fresh sushi and a cozy atmosphere."
+      },
+      {
+        "type": "place",
+        "name": "Fushimi Inari Shrine",
+        "rating": 5.0,
+        "feedback": "The red torii gates path is unforgettable!"
+      }
+    ]
+  },
+  {
+    "postId": "t1003",
+    "user": {
+      "id": "u005",
+      "username": "roaming_ryan",
+      "profilePicture": "https://example.com/users/ryan.jpg"
+    },
+    "location": {
+      "placeName": "Banff National Park, Canada",
+      "coordinates": { "lat": 51.4968, "lng": -115.9281 }
+    },
+    "experience": "Nature’s masterpiece. Hiking, turquoise lakes, and snow-capped peaks everywhere.",
+    "media": [
+      { "type": "image", "url": "https://example.com/posts/lake_louise.jpg" },
+      { "type": "video", "url": "https://example.com/posts/hike_trail.mp4" }
+    ],
+    "timestamp": "2025-03-25T14:20:00Z",
+    "likesCount": 410,
+    "likedByCurrentUser": true,
+    "comments": [
+      {
+        "commentId": "c203",
+        "user": { "id": "u006", "username": "nature_lana" },
+        "text": "That lake color is unreal! 😍",
+        "timestamp": "2025-03-25T15:05:00Z"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "hotel",
+        "name": "Fairmont Chateau Lake Louise",
+        "rating": 4.8,
+        "feedback": "Right on the lake, luxury in the wild!"
+      },
+      {
+        "type": "restaurant",
+        "name": "The Maple Leaf",
+        "rating": 4.3,
+        "feedback": "Great local cuisine with a view."
+      },
+      {
+        "type": "place",
+        "name": "Moraine Lake",
+        "rating": 5.0,
+        "feedback": "Absolute must-see! Arrive early to beat the crowd."
+      }
+    ]
+  },
+  {
+    "postId": "t1004",
+    "user": {
+      "id": "u007",
+      "username": "backpack_ana",
+      "profilePicture": "https://example.com/users/ana.jpg"
+    },
+    "location": {
+      "placeName": "Machu Picchu, Peru",
+      "coordinates": { "lat": -13.1631, "lng": -72.5450 }
+    },
+    "experience": "Felt like walking through history. The hike was tough but worth it!",
+    "media": [
+      { "type": "image", "url": "https://example.com/posts/machu_main.jpg" },
+      { "type": "image", "url": "https://example.com/posts/inca_trail.jpg" }
+    ],
+    "timestamp": "2025-03-20T08:00:00Z",
+    "likesCount": 390,
+    "likedByCurrentUser": false,
+    "comments": [
+      {
+        "commentId": "c204",
+        "user": { "id": "u008", "username": "inca_explorer" },
+        "text": "Hope I can do the trek someday! 🔥",
+        "timestamp": "2025-03-20T09:30:00Z"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "hotel",
+        "name": "Inkaterra Machu Picchu",
+        "rating": 4.6,
+        "feedback": "Eco-friendly with stunning jungle views."
+      },
+      {
+        "type": "restaurant",
+        "name": "Indio Feliz",
+        "rating": 4.4,
+        "feedback": "Unique fusion of Peruvian and French cuisine."
+      },
+      {
+        "type": "place",
+        "name": "Sun Gate",
+        "rating": 5.0,
+        "feedback": "Perfect sunrise view over the ruins."
+      }
+    ]
+  },
+  {
+    "postId": "t1005",
+    "user": {
+      "id": "u009",
+      "username": "globetrotter_jay",
+      "profilePicture": "https://example.com/users/jay.jpg"
+    },
+    "location": {
+      "placeName": "Reykjavik, Iceland",
+      "coordinates": { "lat": 64.1265, "lng": -21.8174 }
+    },
+    "experience": "Chased the Northern Lights and soaked in hot springs. Iceland is surreal!",
+    "media": [
+      { "type": "image", "url": "https://example.com/posts/aurora.jpg" },
+      { "type": "video", "url": "https://example.com/posts/blue_lagoon.mp4" }
+    ],
+    "timestamp": "2025-03-18T21:45:00Z",
+    "likesCount": 480,
+    "likedByCurrentUser": true,
+    "comments": [
+      {
+        "commentId": "c205",
+        "user": { "id": "u010", "username": "sky_chaser" },
+        "text": "The lights look unreal!",
+        "timestamp": "2025-03-18T22:10:00Z"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "hotel",
+        "name": "CenterHotel Midgardur",
+        "rating": 4.3,
+        "feedback": "Central, stylish, and clean."
+      },
+      {
+        "type": "restaurant",
+        "name": "Fiskmarkaðurinn",
+        "rating": 4.6,
+        "feedback": "Best seafood I've had. Try the cod!"
+      },
+      {
+        "type": "place",
+        "name": "Blue Lagoon",
+        "rating": 5.0,
+        "feedback": "So relaxing! A must-visit geothermal spa."
+      }
+    ]
+  },
+  {
+    "postId": "t1006",
+    "user": {
+      "id": "u011",
+      "username": "desert_diya",
+      "profilePicture": "https://example.com/users/diya.jpg"
+    },
+    "location": {
+      "placeName": "Dubai, UAE",
+      "coordinates": { "lat": 25.276987, "lng": 55.296249 }
+    },
+    "experience": "From sky-high views at Burj Khalifa to desert safari rides — Dubai is full of contrasts!",
+    "media": [
+      { "type": "image", "url": "https://example.com/posts/dubai_cityscape.jpg" },
+      { "type": "video", "url": "https://example.com/posts/desert_safari.mp4" }
+    ],
+    "timestamp": "2025-03-22T16:00:00Z",
+    "likesCount": 355,
+    "likedByCurrentUser": false,
+    "comments": [
+      {
+        "commentId": "c206",
+        "user": { "id": "u012", "username": "urban_ravi" },
+        "text": "That skyline is insane! 🏙️",
+        "timestamp": "2025-03-22T17:10:00Z"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "hotel",
+        "name": "Burj Al Arab",
+        "rating": 4.9,
+        "feedback": "Luxury like no other. 7-star experience!"
+      },
+      {
+        "type": "restaurant",
+        "name": "Al Fanar",
+        "rating": 4.2,
+        "feedback": "Authentic Emirati food and decor."
+      },
+      {
+        "type": "place",
+        "name": "Burj Khalifa",
+        "rating": 5.0,
+        "feedback": "The view from the top is unreal."
+      }
+    ]
+  },
+  {
+    "postId": "t1007",
+    "user": {
+      "id": "u013",
+      "username": "seaside_sophia",
+      "profilePicture": "https://example.com/users/sophia.jpg"
+    },
+    "location": {
+      "placeName": "Bali, Indonesia",
+      "coordinates": { "lat": -8.3405, "lng": 115.0920 }
+    },
+    "experience": "Yoga, temples, waterfalls, and smoothie bowls. Bali is healing for the soul.",
+    "media": [
+      { "type": "image", "url": "https://example.com/posts/bali_temple.jpg" },
+      { "type": "image", "url": "https://example.com/posts/ubud_forest.jpg" }
+    ],
+    "timestamp": "2025-03-21T07:45:00Z",
+    "likesCount": 298,
+    "likedByCurrentUser": true,
+    "comments": [
+      {
+        "commentId": "c207",
+        "user": { "id": "u014", "username": "zen_jake" },
+        "text": "I felt the same. Bali changes you. 🙏",
+        "timestamp": "2025-03-21T08:05:00Z"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "hotel",
+        "name": "Alaya Resort Ubud",
+        "rating": 4.7,
+        "feedback": "Tranquil, luxurious, and surrounded by nature."
+      },
+      {
+        "type": "restaurant",
+        "name": "Clear Café",
+        "rating": 4.5,
+        "feedback": "Healthy, tasty, and Insta-worthy!"
+      },
+      {
+        "type": "place",
+        "name": "Tegallalang Rice Terraces",
+        "rating": 5.0,
+        "feedback": "Absolutely breathtaking scenery."
+      }
+    ]
+  },
+  {
+    "postId": "t1008",
+    "user": {
+      "id": "u015",
+      "username": "city_carol",
+      "profilePicture": "https://example.com/users/carol.jpg"
+    },
+    "location": {
+      "placeName": "Paris, France",
+      "coordinates": { "lat": 48.8566, "lng": 2.3522 }
+    },
+    "experience": "Morning croissants, afternoon museums, and Eiffel Tower nights — every moment feels like a movie.",
+    "media": [
+      { "type": "image", "url": "https://example.com/posts/eiffel_evening.jpg" },
+      { "type": "video", "url": "https://example.com/posts/louvre_tour.mp4" }
+    ],
+    "timestamp": "2025-03-19T10:30:00Z",
+    "likesCount": 530,
+    "likedByCurrentUser": true,
+    "comments": [
+      {
+        "commentId": "c208",
+        "user": { "id": "u016", "username": "artsy_ari" },
+        "text": "You captured the vibe perfectly. 🎨",
+        "timestamp": "2025-03-19T11:00:00Z"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "hotel",
+        "name": "Le Bristol Paris",
+        "rating": 4.9,
+        "feedback": "Timeless elegance and top-notch service."
+      },
+      {
+        "type": "restaurant",
+        "name": "Café de Flore",
+        "rating": 4.3,
+        "feedback": "Iconic, a bit pricey, but worth the atmosphere."
+      },
+      {
+        "type": "place",
+        "name": "Eiffel Tower",
+        "rating": 5.0,
+        "feedback": "Romantic and unforgettable at night."
+      }
+    ]
+  },
+  {
+    "postId": "t1009",
+    "user": {
+      "id": "u017",
+      "username": "jungle_jules",
+      "profilePicture": "https://example.com/users/jules.jpg"
+    },
+    "location": {
+      "placeName": "Amazon Rainforest, Brazil",
+      "coordinates": { "lat": -3.4653, "lng": -62.2159 }
+    },
+    "experience": "Camping in the heart of the jungle was wild — literally! Saw pink dolphins and giant trees.",
+    "media": [
+      { "type": "image", "url": "https://example.com/posts/amazon_camp.jpg" },
+      { "type": "video", "url": "https://example.com/posts/river_dolphin.mp4" }
+    ],
+    "timestamp": "2025-03-17T06:20:00Z",
+    "likesCount": 210,
+    "likedByCurrentUser": false,
+    "comments": [
+      {
+        "commentId": "c209",
+        "user": { "id": "u018", "username": "eco_elena" },
+        "text": "Such a rare experience! Respect 🌿",
+        "timestamp": "2025-03-17T07:00:00Z"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "hotel",
+        "name": "Amazon Eco Lodge",
+        "rating": 4.5,
+        "feedback": "Eco-conscious and deep in nature."
+      },
+      {
+        "type": "restaurant",
+        "name": "Rainforest Grill",
+        "rating": 4.0,
+        "feedback": "Local flavors in the jungle setting."
+      },
+      {
+        "type": "place",
+        "name": "Meeting of Waters",
+        "rating": 5.0,
+        "feedback": "Natural wonder — two rivers meet but don't mix!"
+      }
+    ]
+  },
+  {
+    "postId": "t1010",
+    "user": {
+      "id": "u019",
+      "username": "mountain_mika",
+      "profilePicture": "https://example.com/users/mika.jpg"
+    },
+    "location": {
+      "placeName": "Swiss Alps, Switzerland",
+      "coordinates": { "lat": 46.8182, "lng": 8.2275 }
+    },
+    "experience": "Snowboarding by day, fondue by night. The Alps are a snowy dream come true!",
+    "media": [
+      { "type": "image", "url": "https://example.com/posts/swiss_peaks.jpg" },
+      { "type": "video", "url": "https://example.com/posts/snow_ride.mp4" }
+    ],
+    "timestamp": "2025-03-16T13:40:00Z",
+    "likesCount": 320,
+    "likedByCurrentUser": true,
+    "comments": [
+      {
+        "commentId": "c210",
+        "user": { "id": "u020", "username": "snow_hunter" },
+        "text": "Adding this to my ski trip list! 🎿",
+        "timestamp": "2025-03-16T14:10:00Z"
+      }
+    ],
+    "reviews": [
+      {
+        "type": "hotel",
+        "name": "The Chedi Andermatt",
+        "rating": 4.9,
+        "feedback": "Luxury, slopes, and spa — perfect combo."
+      },
+      {
+        "type": "restaurant",
+        "name": "Chez Vrony",
+        "rating": 4.6,
+        "feedback": "Great view with Swiss flavors."
+      },
+      {
+        "type": "place",
+        "name": "Matterhorn",
+        "rating": 5.0,
+        "feedback": "Iconic and awe-inspiring mountain peak."
+      }
+    ]
+  }
+]
+}

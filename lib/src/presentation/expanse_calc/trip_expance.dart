@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:triptale/src/data/dtos/expanse_master_dto.dart';
 import 'package:triptale/src/data/repository/expanse_repository.dart';
 
@@ -43,6 +44,17 @@ class _TripExpanceState extends ConsumerState<TripExpance> {
     TripExpanseMaster tripExpanse = ref.watch(expanseMasterProvider).firstWhere(
           (element) => element.id == currentExpanseId,
         );
+    double _totalAmount() {
+      double total = 0;
+      var a = tripExpanseMasterList
+          .firstWhere((element) => element.id == currentExpanseId)
+          .expanseList;
+      for (int i = 0; i < a.length; i++) {
+        total += a[i].amount;
+      }
+      return total;
+    }
+
     return Scaffold(
       bottomSheet: _isBottomSheet
           ? Container(
@@ -83,10 +95,201 @@ class _TripExpanceState extends ConsumerState<TripExpance> {
       body: Column(
         children: [
           Container(
-            height: 200,
+            height: 150,
             child: Column(
               children: [
                 Text("Pondy"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    StateSetter setState) {
+                                  return AlertDialog(
+                                    title: Text('Add Expense'),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        TextFormField(
+                                          controller: _expanseNameController,
+                                          decoration: InputDecoration(
+                                              labelText: 'Name'),
+                                        ),
+                                        TextFormField(
+                                          controller: _amoutController,
+                                          decoration: InputDecoration(
+                                              labelText: 'Amount'),
+                                          keyboardType: TextInputType.number,
+                                        ),
+                                        // TextFormField(
+                                        //   decoration: InputDecoration(
+                                        //       labelText: 'Quantity'),
+                                        //   keyboardType: TextInputType.number,
+                                        // ),
+                                        SizedBox(height: 15),
+                                        TextFormField(
+                                          controller: _dateController,
+                                          decoration: InputDecoration(
+                                            labelText: "Date",
+                                            suffixIcon:
+                                                Icon(Icons.calendar_today),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                          ),
+                                          readOnly: true,
+                                          onTap: () => _selectDate(context),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return "Date selection is required";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        Row(
+                                          children: [
+                                            Checkbox(
+                                              value: _isPerHead,
+                                              onChanged: (bool? value) {
+                                                setState(() {
+                                                  _isPerHead = value!;
+                                                });
+                                              },
+                                            ),
+                                            Text('Per Head'),
+                                          ],
+                                        ),
+                                        // if (isPerHead)
+                                        //   TextFormField(
+                                        //     controller: perHeadController,
+                                        //     decoration: InputDecoration(
+                                        //         labelText: 'How much per head'),
+                                        //     keyboardType: TextInputType.number,
+                                        //   ),
+                                      ],
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('CANCEL'),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          // Handle the form submission logic here
+                                          final newTripExpance = TripExpanse(
+                                              title:
+                                                  _expanseNameController.text,
+                                              amount: double.parse(
+                                                  _amoutController.text),
+                                              date: DateTime.parse(
+                                                  _dateController.text),
+                                              isPerHead: _isPerHead);
+                                          tripExpanseMasterList
+                                              .firstWhere((element) =>
+                                                  element.id ==
+                                                  currentExpanseId)
+                                              .expanseList
+                                              .add(newTripExpance);
+                                          // final updatedList = [
+                                          //   ...tripExpanseMasterList
+                                          // ];
+                                          ref
+                                              .read(expanseMasterProvider
+                                                  .notifier)
+                                              .update((state) =>
+                                                  [...tripExpanseMasterList]);
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('ACCEPT'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        child: Text("add +")),
+                    // ElevatedButton(onPressed: () {}, child: Text(("remove -"))),
+                    ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    StateSetter setState) {
+                                  return AlertDialog(
+                                    title: Text('Total Expense'),
+                                    content: Container(
+                                      height: 100,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                              "Total amount per person : ${_totalAmount() / tripExpanse.numberOfMembers}")
+                                        ],
+                                      ),
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        child: Text(("Split /"))),
+                    ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    StateSetter setState) {
+                                  return AlertDialog(
+                                    title: Text('Total Expense'),
+                                    content: Container(
+                                      height: 100,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                              "Total Amount : ${_totalAmount()}")
+                                        ],
+                                      ),
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        child: Text(("Total"))),
+                  ],
+                ),
                 ElevatedButton(
                     onPressed: () {
                       showDialog(
@@ -96,99 +299,22 @@ class _TripExpanceState extends ConsumerState<TripExpance> {
                             builder:
                                 (BuildContext context, StateSetter setState) {
                               return AlertDialog(
-                                title: Text('Add Expense'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    TextFormField(
-                                      controller: _expanseNameController,
-                                      decoration:
-                                          InputDecoration(labelText: 'Name'),
-                                    ),
-                                    TextFormField(
-                                      controller: _amoutController,
-                                      decoration:
-                                          InputDecoration(labelText: 'Amount'),
-                                      keyboardType: TextInputType.number,
-                                    ),
-                                    // TextFormField(
-                                    //   decoration: InputDecoration(
-                                    //       labelText: 'Quantity'),
-                                    //   keyboardType: TextInputType.number,
-                                    // ),
-                                    TextFormField(
-                                      controller: _dateController,
-                                      decoration: InputDecoration(
-                                        labelText: "Date of Birth",
-                                        suffixIcon: Icon(Icons.calendar_today),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                      ),
-                                      readOnly: true,
-                                      onTap: () => _selectDate(context),
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "Date selection is required";
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                          value: _isPerHead,
-                                          onChanged: (bool? value) {
-                                            setState(() {
-                                              _isPerHead = value!;
-                                            });
-                                          },
-                                        ),
-                                        Text('Per Head'),
-                                      ],
-                                    ),
-                                    // if (isPerHead)
-                                    //   TextFormField(
-                                    //     controller: perHeadController,
-                                    //     decoration: InputDecoration(
-                                    //         labelText: 'How much per head'),
-                                    //     keyboardType: TextInputType.number,
-                                    //   ),
-                                  ],
+                                title: Text('Remaining Amount'),
+                                content: Container(
+                                  height: 100,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                          "Remaining Amount from budget : ${tripExpanse.budget - _totalAmount()}")
+                                    ],
+                                  ),
                                 ),
                                 actions: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      Navigator.of(context).pop();
+                                      Navigator.pop(context);
                                     },
-                                    child: Text('CANCEL'),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      // Handle the form submission logic here
-                                      final newTripExpance = TripExpanse(
-                                          title: _expanseNameController.text,
-                                          amount: double.parse(
-                                              _amoutController.text),
-                                          date: DateTime.parse(
-                                              _dateController.text),
-                                          isPerHead: _isPerHead);
-                                      tripExpanseMasterList
-                                          .firstWhere((element) =>
-                                              element.id == currentExpanseId)
-                                          .expanseList
-                                          .add(newTripExpance);
-                                      // final updatedList = [
-                                      //   ...tripExpanseMasterList
-                                      // ];
-                                      ref
-                                          .read(expanseMasterProvider.notifier)
-                                          .update((state) =>
-                                              [...tripExpanseMasterList]);
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('ACCEPT'),
+                                    child: Text('OK'),
                                   ),
                                 ],
                               );
@@ -197,9 +323,7 @@ class _TripExpanceState extends ConsumerState<TripExpance> {
                         },
                       );
                     },
-                    child: Text("add +")),
-                ElevatedButton(onPressed: () {}, child: Text(("remove -"))),
-                ElevatedButton(onPressed: () {}, child: Text(("Split /"))),
+                    child: Text(("Remaining Amount")))
               ],
             ),
           ),
@@ -226,18 +350,28 @@ class _TripExpanceState extends ConsumerState<TripExpance> {
                             width: 50,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [Text("JAN"), Text("18")],
+                              children: [
+                                Text(DateFormat('MMM').format(
+                                    tripExpanse.expanseList[index].date)),
+                                Text(tripExpanse.expanseList[index].date.day
+                                    .toString())
+                              ],
                             ),
                           ),
                           SizedBox(width: 5),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Room Rent"),
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(tripExpanse.expanseList[index].title),
+                              ],
+                            ),
                           ),
-                          SizedBox(width: 20)
+                          SizedBox(width: 20),
+                          Text(
+                              tripExpanse.expanseList[index].amount.toString()),
+                          SizedBox(width: 20),
                           // Container(
                           //   width: 80,
                           //   color: Colors.red,
@@ -252,7 +386,16 @@ class _TripExpanceState extends ConsumerState<TripExpance> {
                 );
               },
             ),
-          )
+          ),
+          Row(
+            children: [
+              Expanded(child: SizedBox()),
+              ElevatedButton(
+                  onPressed: () {}, child: Text(_totalAmount().toString())),
+              SizedBox(width: 20)
+            ],
+          ),
+          SizedBox(height: 40)
         ],
       ),
     );

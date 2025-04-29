@@ -35,7 +35,33 @@ void fetchAndSetExpanseMasters(WidgetRef ref) async {
   ref.read(expanseMasterProvider.notifier).state = expanseMasters;
 }
 
+void fetchAndSetExpanseDetail(WidgetRef ref, int id) async {
+  // Obtain an instance of the DBRepository
+  DBRepository dbRepository = DBRepository();
+  // Read all records from the database
+  var records =
+      await dbRepository.readExpanseDetailById("TripExpanseDetail", id);
+
+  // Convert records to List<TripExpanseMaster>
+  List<TripExpanse> expanseMastersDetails = records?.map<TripExpanse>((record) {
+        return TripExpanse(
+            id: record['id'],
+            tripExMasterID: record['tripExMasterID'],
+            title: record['title'],
+            amount: record['amount'],
+            date: record['date'],
+            isPerHead: record['isPerHead']);
+      }).toList() ??
+      [];
+
+  // Update the expanseMasterProvider with the fetched data
+  ref.read(expanseDetailsProvider.notifier).state = expanseMastersDetails;
+}
+
 final expanseMasterProvider = StateProvider<List<TripExpanseMaster>>((ref) {
+  return [];
+});
+final expanseDetailsProvider = StateProvider<List<TripExpanse>>((ref) {
   return [];
 });
 final currentExpanseProvider = StateProvider<int?>((ref) {

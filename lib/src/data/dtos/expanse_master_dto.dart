@@ -35,6 +35,7 @@ class TripExpanseMaster {
 
 class TripExpanse {
   int? id;
+  int? tripExMasterID;
   String title;
   double amount;
   bool isPerHead;
@@ -42,6 +43,7 @@ class TripExpanse {
 
   TripExpanse({
     this.id,
+    this.tripExMasterID,
     required this.amount,
     required this.isPerHead,
     required this.title,
@@ -52,6 +54,7 @@ class TripExpanse {
     return {
       'id': id,
       'title': title,
+      'tripExMasterID': tripExMasterID,
       'amount': amount,
       'isPerHead': isPerHead,
       'date': date.toIso8601String(),
